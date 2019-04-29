@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script src="p5/p5.min.js"></script>
+    <script src="p5.geolocation.js"></script>
+    <script>
+      var d = document;
+      function setup() {
+        if (geoCheck() === true) {
+          d.getElementById('check').innerHTML = "Geo: available";
+        } else {
+          d.getElementById('check').innerHTML = "Geo: inavailable";
+        }
+        getCurrentPosition(locateLocation);
+        watchPosition(updateLocation);
+      }
+      function locateLocation(position) {
+        d.getElementById('lat').innerHTML = position.latitude;
+        d.getElementById('lon').innerHTML = position.longitude;
+      }
+      function updateLocation(position) {
+        d.getElementById('lat').innerHTML = position.latitude;
+        d.getElementById('lon').innerHTML = position.longitude;
+      }
+    </script>
+  </head>
+  <body>
+    <p id="check"></p>
+    <h1 id="lat"></h1>
+    <h1 id="lon"></h1>
+  </body>
+</html>
