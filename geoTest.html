@@ -9,6 +9,7 @@
       var lonGlo;
       var pinT;
       var pinG;
+      
       function setup() {
         if (geoCheck() === true) {
           document.getElementById('check').innerHTML = "Geo: available";
@@ -18,6 +19,7 @@
         getCurrentPosition(locateLocation);
         watchPosition(updateLocation);
       }
+      
       function draw() {
         if (latArr.length > 2 || lonArr.length > 2) {
           latArr.pop();
@@ -28,18 +30,21 @@
         var d = calcGeoDistance(latArr[0], lonArr[0], latArr[1], lonArr[1]);
         document.getElementById('diff').innerHTML = "Diff of set Points: " + d;
       }
+      
       function locateLocation(position) {
-        latGlo = position.latitude.toFixed(4);
-        lonGlo = position.longitude.toFixed(4);
+        latGlo = position.latitude
+        lonGlo = position.longitude
         document.getElementById('lat').innerHTML = "lat: " + position.latitude.toFixed(4);
         document.getElementById('lon').innerHTML = "long: " + position.longitude.toFixed(4);
       }
+      
       function updateLocation(position) {
-        latGlo = position.latitude.toFixed(4);
-        lonGlo = position.longitude.toFixed(4);
+        latGlo = position.latitude
+        lonGlo = position.longitude
         document.getElementById('lat').innerHTML = "lat: " + position.latitude.toFixed(4);
         document.getElementById('lon').innerHTML = "long: " + position.longitude.toFixed(4);
       }
+      
       function mousePressed() {
         latArr.push(latGlo);
         lonArr.push(lonGlo);
@@ -52,8 +57,8 @@
     <p id="check"></p>
     <h1 id="colT"></h1>
     <h1 id="colG"></h1>
+    <h1 id="diff"></h1>
     <h1 id="lat"></h1>
     <h1 id="lon"></h1>
-    <h1 id="diff"></h1>
   </body>
 </html>
