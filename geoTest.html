@@ -11,9 +11,9 @@
       var pinG;
       function setup() {
         if (geoCheck() === true) {
-          d.getElementById('check').innerHTML = "Geo: available";
+          document.getElementById('check').innerHTML = "Geo: available";
         } else {
-          d.getElementById('check').innerHTML = "Geo: inavailable";
+          document.getElementById('check').innerHTML = "Geo: inavailable";
         }
         getCurrentPosition(locateLocation);
         watchPosition(updateLocation);
