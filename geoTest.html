@@ -11,7 +11,9 @@
       var pinG;
       
       function setup() {
+        window.alert("loaded");
         if (geoCheck() === true) {
+          window.alert("You're good");
           document.getElementById('check').innerHTML = "Geo: available";
         } else {
           document.getElementById('check').innerHTML = "Geo: inavailable";
@@ -32,15 +34,15 @@
       }
       
       function locateLocation(position) {
-        latGlo = position.latitude
-        lonGlo = position.longitude
+        latGlo = position.latitude;
+        lonGlo = position.longitude;
         document.getElementById('lat').innerHTML = "lat: " + position.latitude.toFixed(4);
         document.getElementById('lon').innerHTML = "long: " + position.longitude.toFixed(4);
       }
       
       function updateLocation(position) {
-        latGlo = position.latitude
-        lonGlo = position.longitude
+        latGlo = position.latitude;
+        lonGlo = position.longitude;
         document.getElementById('lat').innerHTML = "lat: " + position.latitude.toFixed(4);
         document.getElementById('lon').innerHTML = "long: " + position.longitude.toFixed(4);
       }
