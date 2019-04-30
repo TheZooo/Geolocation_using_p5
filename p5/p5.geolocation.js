@@ -13,7 +13,6 @@ p5.prototype.geoCheck = function(){
   }else{
     return false;
   }
-
 }
 /**
 * Get User's Current Position
@@ -26,10 +25,8 @@ p5.prototype.geoCheck = function(){
 * @return {object} an object containing the users position data
 */
 p5.prototype.getCurrentPosition = function(callback, errorCallback) {
-
   var ret = {};
   var self = this;
-
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, geoError);
   }else{
@@ -66,10 +63,8 @@ p5.prototype.getCurrentPosition = function(callback, errorCallback) {
   }
   return ret;
 };
-
 //add the get Current position to the preload stack.
 p5.prototype.registerPreloadMethod('getCurrentPosition', p5.prototype);
-
 /**
 * Get User's Current Position on an interval
 *
@@ -85,23 +80,17 @@ p5.prototype.intervalCurrentPosition = function(callback, interval,  errorCallba
   var gogogadget = 5000;
   gogogadget = interval;
   if (navigator.geolocation) {
-
     _intervalPosition = setInterval(function(){
-
       console.log("pos");
       navigator.geolocation.getCurrentPosition(success, geoError);
-
     }, gogogadget)
-
   }else{
     geoError("geolocation not available");
   };
-
     function geoError(message){
       console.log(message.message);
        if(typeof errorCallback == 'function'){ errorCallback(message.message) };
     }
-
     function success(position){
       if(typeof callback == 'function'){ callback(position.coords) };
     }
@@ -133,17 +122,14 @@ p5.prototype.watchPosition = function(callback, errorCallback, options){
   }else{
     geoError("geolocation not available");
   };
-
   function geoError(message){
       console.log("watch Postition Error" + message);
        if(typeof errorCallback == 'function'){ errorCallback(message.message) };
     }
-
   function success(position){
         if(typeof callback == 'function'){ callback(position.coords) };
         // console.log(_posWatch);
   }
-
 }
 /**
 * Clear the watchPosition
@@ -167,6 +153,7 @@ p5.prototype.clearWatch = function(){
 * @param  {string} units to use: 'km' or 'mi', 'mi' is default if left blank
 * @return {float} the distance between the two points in the specified units, miles is default
 */
+
 // http://www.movable-type.co.uk/scripts/latlong.html
 // Used Under MIT License
 p5.prototype.calcGeoDistance = function(lat1, lon1, lat2, lon2, units) {
@@ -219,7 +206,6 @@ p5.prototype.isLocationInPolygon = function(poly, pt){
 * @param  {object} an positionOptions object: enableHighAccuracy, maximumAge, timeout
 */
 p5.prototype.geoFenceCircle = function(lat, lon, fence, insideCallback, outsideCallback, units, options){
-
   this.lat = lat;
   this.lon = lon;
   this.fence = fence;
@@ -230,14 +216,11 @@ p5.prototype.geoFenceCircle = function(lat, lon, fence, insideCallback, outsideC
   this.insideFence = false;
   this.options = options;
   this.id = '';
-
     this.geoError = function(message){
       console.log("geoFenceCircle Error :" + message);
     }
-
     this.success = function(position){
       this.distance = calcGeoDistance(this.lat,this.lon, position.coords.latitude, position.coords.longitude, this.units);
-
       if(this.distance <= this.fence){
           if(typeof this.insideCallback == 'function'){ this.insideCallback(position.coords) };
           this.insideFence = true;
@@ -246,14 +229,12 @@ p5.prototype.geoFenceCircle = function(lat, lon, fence, insideCallback, outsideC
         this.insideFence = false;
       }
     }
-
     this.clear = function() {
       if (this.id) {
         navigator.geolocation.clearWatch(this.id);
         this.id = '';
       }
     }
-
     if (navigator.geolocation) {
       // bind the callbacks to the geoFenceCircle 'this' so we can access, this.lat, this.lon, etc..
       this.id = navigator.geolocation.watchPosition(this.success.bind(this), this.geoError.bind(this), this.options);
@@ -275,8 +256,6 @@ p5.prototype.geoFenceCircle = function(lat, lon, fence, insideCallback, outsideC
 * @param  {string} units to use: 'km' or 'mi', 'mi' is default if left blank
 * @param  {object} an positionOptions object: enableHighAccuracy, maximumAge, timeout
 */
-
-
 /*var points = [
     {x: 34.076089, y: -118.440915},
     {x: 34.076095, y: -118.440605},
@@ -284,7 +263,6 @@ p5.prototype.geoFenceCircle = function(lat, lon, fence, insideCallback, outsideC
     {x: 34.075891, y: -118.440932},
 ];*/
 p5.prototype.geoFencePolygon = function( ArrayOfObjectsWithLatLong, insideCallback, outsideCallback, units, options){
-
   this.ArrayOfObjectsWithLatLong = ArrayOfObjectsWithLatLong;
   this.units = units; //this should work since calcGeoDistance defaults to miles.
   this.insideCallback = insideCallback;
@@ -292,28 +270,23 @@ p5.prototype.geoFencePolygon = function( ArrayOfObjectsWithLatLong, insideCallba
   this.insideFence = false;
   this.options = options;
   this.id = '';
-
     this.geoError = function(message){
       console.log("geoFencePolygon Error :" + message);
     }
-
     this.success = function(position){
       this.insideFence = isLocationInPolygon(this.ArrayOfObjectsWithLatLong, { lat:position.coords.latitude, lon: position.coords.longitude });
-
       if(this.insideFence == true){
           if(typeof this.insideCallback == 'function'){ this.insideCallback(position.coords) };
       }else{
         if(typeof this.outsideCallback == 'function'){ this.outsideCallback(position.coords) };
       }
     }
-
     this.clear = function() {
       if (this.id) {
         navigator.geolocation.clearWatch(this.id);
         this.id = '';
       }
     }
-
     if (navigator.geolocation) {
       // bind the callbacks to the geoFenceCircle 'this' so we can access, this.lat, this.lon, etc..
       this.id = navigator.geolocation.watchPosition(this.success.bind(this), this.geoError.bind(this), this.options);
