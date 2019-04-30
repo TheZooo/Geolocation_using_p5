@@ -22,8 +22,8 @@
       
       function draw() {
         if (latArr.length > 2 || lonArr.length > 2) {
-          latArr.pop();
-          lonArr.pop();
+          latArr.shift();
+          lonArr.shift();
         }
         document.getElementById('colT').innerHTML = "Set lat: " + latArr;
         document.getElementById('colG').innerHTML = "Set long: " + lonArr;
