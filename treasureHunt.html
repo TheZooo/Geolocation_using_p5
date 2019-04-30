@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <script src="p5/p5.min.js"></script>
+    <script src="p5/p5.geolocation.js"></script>
+    <script>
+      var d = document;
+      var pLat;
+      var pLong;
+      var tLat = 21.310222;
+      var tLong = -157.837545;
+      var distance;
+    
+      function setup() {
+        if (geoCheck() === true) {
+          d.getElementById('check').innerHTML = "Geo: Available";
+          d.getElementById('curLat').innerHTML = "Wait One Second";
+        } else {
+          d.getElementById('check').innerHTML = "Geo: Inavailable";
+        }
+        intervalCurrentPosition(pinger, 1000);
+      }
+      
+      function pinger(position) {
+        pLat = position.latitude;
+        pLong = position.longitude;
+        distance = calcGeoDistance(pLat, pLong, tLat, tLong, "mi");
+        d.getElementById('curLat').innerHTML = "Your Lat: " + pLat;
+        d.getElementById('curLong').innerHTML = "Your Long: " + pLong;
+        d.getElementById('dist').innerHTML = "Distance from Target: " + distance;
+      }
+      
+      function draw() {
+        if (distance < 0.05) {
+          d.getElementById('detector').innerHTML = "You're at the treasure!";
+        } else {
+          d.getElementById('detector').innerHTML = "Not there yet, keep moving";
+        }
+      }
+      
+    </script>
+  </head>
+  <body>
+    <p id="check"></p>
+    <h1 id="curLat"></h1>
+    <h1 id="curLong"></h1>
+    <h1 id="dist"></h1>
+    <h1 id="detector"></h1>
+  </body>
+</html>
