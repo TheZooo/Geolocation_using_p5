@@ -1,6 +1,4 @@
 console.log("%c p5.geolocation Loaded ", "color:pink; background:black; ");
-
-
 /**
 * Check if location services are available
 *
@@ -17,7 +15,6 @@ p5.prototype.geoCheck = function(){
   }
 
 }
-
 /**
 * Get User's Current Position
 *
@@ -38,13 +35,11 @@ p5.prototype.getCurrentPosition = function(callback, errorCallback) {
   }else{
     geoError("geolocation not available");
   };
-
   function geoError(message){
     console.log(message.message);
     ret.error = message.message;
     if(typeof errorCallback == 'function'){ errorCallback(message.message) };
   }
-
   function success(position){
       // console.log(position);
 
@@ -69,7 +64,6 @@ p5.prototype.getCurrentPosition = function(callback, errorCallback) {
     if (typeof self._decrementPreload === 'function') { self._decrementPreload() };
     if(typeof callback == 'function'){ callback(position.coords) };
   }
-
   return ret;
 };
 
@@ -88,10 +82,8 @@ p5.prototype.registerPreloadMethod('getCurrentPosition', p5.prototype);
 */
 p5.prototype._intervalPosition = null;
 p5.prototype.intervalCurrentPosition = function(callback, interval,  errorCallback){
-
   var gogogadget = 5000;
   gogogadget = interval;
-
   if (navigator.geolocation) {
 
     _intervalPosition = setInterval(function(){
@@ -114,7 +106,6 @@ p5.prototype.intervalCurrentPosition = function(callback, interval,  errorCallba
       if(typeof callback == 'function'){ callback(position.coords) };
     }
 }
-
 /**
 * Clear interval Position
 *
@@ -125,7 +116,6 @@ p5.prototype.intervalCurrentPosition = function(callback, interval,  errorCallba
 p5.prototype.clearIntervalPos = function(){
   window.clearInterval(_intervalPosition);
 }
-
 /**
 * Watch User's Current Position
 *
@@ -138,7 +128,6 @@ p5.prototype.clearIntervalPos = function(){
 */
 p5.prototype._posWatch = null;
 p5.prototype.watchPosition = function(callback, errorCallback, options){
-
   if (navigator.geolocation) {
     _posWatch = navigator.geolocation.watchPosition(success, geoError, options);
   }else{
@@ -156,7 +145,6 @@ p5.prototype.watchPosition = function(callback, errorCallback, options){
   }
 
 }
-
 /**
 * Clear the watchPosition
 *
@@ -167,7 +155,6 @@ p5.prototype.watchPosition = function(callback, errorCallback, options){
 p5.prototype.clearWatch = function(){
   navigator.geolocation.clearWatch( _posWatch );
 }
-
 /**
 * Calculate the Distance between two points
 *
@@ -180,7 +167,6 @@ p5.prototype.clearWatch = function(){
 * @param  {string} units to use: 'km' or 'mi', 'mi' is default if left blank
 * @return {float} the distance between the two points in the specified units, miles is default
 */
-
 // http://www.movable-type.co.uk/scripts/latlong.html
 // Used Under MIT License
 p5.prototype.calcGeoDistance = function(lat1, lon1, lat2, lon2, units) {
@@ -198,8 +184,6 @@ p5.prototype.calcGeoDistance = function(lat1, lon1, lat2, lon2, units) {
     var d = R * c;
     return d;
   }
-
-
 /**
 * Calculate if a Location is inside Polygon
 *
@@ -220,9 +204,6 @@ p5.prototype.isLocationInPolygon = function(poly, pt){
         && (c = !c);
     return c;
 }
-
-
-
 /**
 * Create a new geoFenceCircle
 *
@@ -280,11 +261,6 @@ p5.prototype.geoFenceCircle = function(lat, lon, fence, insideCallback, outsideC
       geoError("geolocation not available");
     };
 }
-
-
-
-
-
 /**
 * Create a new geoFencePolygon
 *
