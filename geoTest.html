@@ -27,7 +27,7 @@
         }
         document.getElementById('colT').innerHTML = "Set lat: " + latArr;
         document.getElementById('colG').innerHTML = "Set long: " + lonArr;
-        var d = calcGeoDistance(latArr[0], lonArr[0], latArr[1], lonArr[1]);
+        var d = calcGeoDistance(latArr[0], lonArr[0], latArr[1], lonArr[1], "mi");
         document.getElementById('diff').innerHTML = "Diff of set Points: " + d;
       }
       
