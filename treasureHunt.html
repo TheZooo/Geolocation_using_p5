@@ -17,7 +17,8 @@
         } else {
           d.getElementById('check').innerHTML = "Geo: Inavailable";
         }
-        intervalCurrentPosition(pinger, 1000);
+        intervalCurrentPosition(pinger, 500);
+        enableHighAccuracy = true;
       }
       
       function pinger(position) {
