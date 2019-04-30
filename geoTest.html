@@ -16,8 +16,8 @@
         } else {
           document.getElementById('check').innerHTML = "Geo: inavailable";
         }
-        getCurrentPosition(locateLocation);
-        watchPosition(updateLocation);
+        intervalCurrentPosition(locatePosition, 200);
+        enableHighAccuracy = true;
       }
       
       function draw() {
@@ -32,13 +32,6 @@
       }
       
       function locateLocation(position) {
-        latGlo = position.latitude;
-        lonGlo = position.longitude;
-        document.getElementById('lat').innerHTML = "lat: " + position.latitude.toFixed(4);
-        document.getElementById('lon').innerHTML = "long: " + position.longitude.toFixed(4);
-      }
-      
-      function updateLocation(position) {
         latGlo = position.latitude;
         lonGlo = position.longitude;
         document.getElementById('lat').innerHTML = "lat: " + position.latitude.toFixed(4);
